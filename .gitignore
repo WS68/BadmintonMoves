@@ -1,0 +1,17 @@
+node_modules/
+dist/
+coverage/
+*.log
+*.rar
+*.zip
+src/**/*.rar
+src/**/*.zip
+.vscode/
+bin/
+obj/
+*.csproj.user
+*.vspscc
+*.user
+.vs/
+/src/Server/_ReSharper.Caches/ReSharperPlatformVs17223_db3b15e9.LanDocs.Server.00
+/src/Windows/Client/TestResults
