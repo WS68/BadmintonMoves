@@ -8,6 +8,7 @@ namespace BadmMoves.Models
 {
 	internal abstract class ModelItem
 	{
+		public ModelItem Clone() => (ModelItem) this.MemberwiseClone();
 		public abstract void Paint(PaintContext paintContext);
 	}
 }

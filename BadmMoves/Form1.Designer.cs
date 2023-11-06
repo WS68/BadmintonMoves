@@ -55,9 +55,9 @@
 			// panelRight
 			// 
 			this.panelRight.Dock = System.Windows.Forms.DockStyle.Right;
-			this.panelRight.Location = new System.Drawing.Point(658, 46);
+			this.panelRight.Location = new System.Drawing.Point(679, 46);
 			this.panelRight.Name = "panelRight";
-			this.panelRight.Size = new System.Drawing.Size(142, 340);
+			this.panelRight.Size = new System.Drawing.Size(121, 340);
 			this.panelRight.TabIndex = 2;
 			// 
 			// panelMain
@@ -66,13 +66,13 @@
 			this.panelMain.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panelMain.Location = new System.Drawing.Point(0, 46);
 			this.panelMain.Name = "panelMain";
-			this.panelMain.Size = new System.Drawing.Size(658, 340);
+			this.panelMain.Size = new System.Drawing.Size(679, 340);
 			this.panelMain.TabIndex = 3;
 			this.panelMain.Paint += new System.Windows.Forms.PaintEventHandler(this.panelMain_Paint);
 			// 
 			// timer
 			// 
-			this.timer.Interval = 500;
+			this.timer.Interval = 200;
 			this.timer.Tick += new System.EventHandler(this.timer_Tick);
 			// 
 			// Form1
