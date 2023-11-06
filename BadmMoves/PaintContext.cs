@@ -1,3 +1,4 @@
+using System.Drawing.Drawing2D;
 using BadmMoves.Models;
 
 namespace BadmMoves;
@@ -55,9 +56,19 @@ internal sealed class PaintContext
 
 	public void Line( float width, Color color, PointF x, PointF y )
 	{
-		Pen p = new Pen(color, ToWidth(width));
-		_args.Graphics.DrawLine( p, ToPoint( x ), ToPoint( y ) );
+		Line(false, width, color, x, y);
 	}
+
+	public void Line(bool dotted, float width, Color color, PointF x, PointF y)
+	{
+		var lineW = ToWidth(width);
+		var p = new Pen(color, lineW);
+		if (dotted)
+			p.DashPattern = new float[] { lineW, lineW };
+
+		_args.Graphics.DrawLine(p, ToPoint(x), ToPoint(y));
+	}
+
 
 	private PointF ToPoint(PointF p)
 	{
