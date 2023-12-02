@@ -82,4 +82,10 @@ internal sealed class PaintContext
 	{
 		return width * _smToDots;
 	}
+
+    public void Text(string text, int height, Color color, PointF position)
+    {
+        var font = new Font(FontFamily.GenericSansSerif, ToWidth( height ), FontStyle.Regular, GraphicsUnit.Point);
+        _args.Graphics.DrawString(text, font, new SolidBrush( color ), ToPoint( position ) );
+    }
 }

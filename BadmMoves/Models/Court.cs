@@ -31,5 +31,9 @@ class Court : ModelItem
 		//vertical center
 		paintContext.Line(true, Line, Color.Black, new PointF(Len / 2, Line / 2), new PointF(Len / 2, Width - Line / 2));
 
+        paintContext.Text( "1", 20, Color.Black, new PointF(Len / 4 - 60, Width / 4 - 20 ) );
+        paintContext.Text("2", 20, Color.Black, new PointF(3 * Len / 4 + 30, Width / 4 - 20 ));
+        paintContext.Text("3", 20, Color.Black, new PointF(3 * Len / 4 + 30 , 3 * Width / 4));
+        paintContext.Text("4", 20, Color.Black, new PointF(Len / 4 - 60, 3 * Width / 4 ));
 	}
 }
