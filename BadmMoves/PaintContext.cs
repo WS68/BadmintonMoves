@@ -78,7 +78,14 @@ internal sealed class PaintContext
 		return new PointF(x, y);
 	}
 
-	private float ToWidth(float width)
+    private PointF ToSize(PointF p)
+    {
+        var x = p.X * (_x / Court.Len);
+        var y = p.Y * (_y / Court.Width);
+        return new PointF(x, y);
+    }
+
+    private float ToWidth(float width)
 	{
 		return width * _smToDots;
 	}
@@ -87,5 +94,16 @@ internal sealed class PaintContext
     {
         var font = new Font(FontFamily.GenericSansSerif, ToWidth( height ), FontStyle.Regular, GraphicsUnit.Point);
         _args.Graphics.DrawString(text, font, new SolidBrush( color ), ToPoint( position ) );
+    }
+
+    public void Oval(Color color, int height, int width, PointF position )
+    {
+        var size = ToSize(new PointF(width, height));
+        var pos = ToPoint(position);
+
+        var pen = new Pen(color, ToWidth(4));
+        Brush brash = new SolidBrush( Color.White );
+        _args.Graphics.FillEllipse( brash, pos.X, pos.Y, size.X, size.Y);
+        _args.Graphics.DrawEllipse(pen, pos.X, pos.Y, size.X, size.Y);
     }
 }

@@ -27,10 +27,40 @@ namespace BadmMoves.Models
 
 		public void ApplyCommand(Command command)
 		{
+            if (command is StartCmd sc)
+            {
+                RemovePlayers();
 
+                var player = new Player() {Male = false, Position = new PointF( Court.Len / 2 - 250, Court.Width / 2 - 60 ) };
+                var pos = ModelItems.AddAfter(_pPlayers, player);
+
+                player = new Player() { Male = true, Position = new PointF(Court.Len / 2 - 400, Court.Width / 2 ) };
+                pos = ModelItems.AddAfter(pos, player);
+
+                player = new Player() { Male = true, Position = new PointF(Court.Len / 2 + 300, Court.Width / 2 + 100 ) };
+                pos = ModelItems.AddAfter(pos, player);
+
+                player = new Player() { Male = false, Position = new PointF(Court.Len / 2 + 400, Court.Width / 2 - 100 ) };
+                pos = ModelItems.AddAfter( pos, player);
+
+                return;
+            }
 		}
 
-		public static Model Build(IReadOnlyList<ModelItem> players, IReadOnlyList<ModelItem> zones, IReadOnlyList<ModelItem> lines)
+        private void RemovePlayers()
+        {
+            RemoveBetween(_pPlayers, _pLines);
+        }
+
+        private void RemoveBetween(LinkedListNode<ModelItem> from, LinkedListNode<ModelItem> end)
+        {
+            while (from.Next != end && from.Next != null )
+            {
+                ModelItems.Remove(from.Next);
+            }
+        }
+
+        public static Model Build(IReadOnlyList<ModelItem> players, IReadOnlyList<ModelItem> zones, IReadOnlyList<ModelItem> lines)
 		{
 			var model = new Model();
 			var link = model._pZones;
