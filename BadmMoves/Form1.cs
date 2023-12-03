@@ -6,6 +6,8 @@ namespace BadmMoves
     public partial class Form1 : Form
     {
         private Model _model = new Model();
+        private readonly LinkedList<Command> _history = new LinkedList<Command>();
+        private readonly LinkedList<Command> _redo = new LinkedList<Command>();
 
         public Form1()
         {
@@ -46,20 +48,10 @@ namespace BadmMoves
             panelMain.Invalidate();
         }
 
-        private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
             comboBoxGame.SelectedIndex = 0;
             comboBoxServe.SelectedIndex = 0;
-        }
-
-        private void comboBoxServe_SelectedIndexChanged(object sender, EventArgs e)
-        {
-
         }
 
         private void buttonStart_Click(object sender, EventArgs e)
@@ -67,7 +59,15 @@ namespace BadmMoves
             var game = (Games)comboBoxGame.SelectedIndex;
             var serveIdx = comboBoxServe.SelectedIndex;
 
-            _model.ApplyCommand(new StartCmd() { Game = game, ServingPlayer = serveIdx });
+            var startCmd = new StartCmd() { Game = game, ServingPlayer = serveIdx };
+            _model.ApplyCommand(startCmd);
+
+            _history.Clear();
+            _redo.Clear();
+            _history.AddLast(startCmd);
+
+            radioButtonStrike.Checked = true;
+
             Redraw();
         }
 
@@ -77,20 +77,21 @@ namespace BadmMoves
             if (!gc.TryGetCourtPoint(e.X, e.Y, out var position))
                 return;
 
-
+            if (_model.TryLocatePlayer(position, out var index))
+            {
+                var selectCmd = new SelectCmd() { Player = index };
+                _model.ApplyCommand(selectCmd);
+                _history.AddLast(selectCmd);
+                Redraw();
+            }
         }
 
         private void panelMain_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             var gc = GraphicContext.FromControl(panelMain);
-            if (!gc.TryGetCourtPoint(e.X, e.Y, out var position ))
+            if (!gc.TryGetCourtPoint(e.X, e.Y, out var position))
                 return;
 
-            if (_model.TryLocatePlayer(position, out var index))
-            {
-                _model.ApplyCommand( new SelectCmd() { Player = index } );
-                Redraw();
-            }
         }
     }
 }

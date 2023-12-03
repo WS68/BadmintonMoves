@@ -37,9 +37,17 @@
             comboBoxGame = new ComboBox();
             panelBottom = new Panel();
             panelRight = new Panel();
+            buttonZone = new Button();
+            buttonRedo = new Button();
+            buttonUndo = new Button();
+            groupBox1 = new GroupBox();
+            radioButtonStrike = new RadioButton();
+            radioButtonMove = new RadioButton();
             panelMain = new Panel();
             timer = new System.Windows.Forms.Timer(components);
             panelTop.SuspendLayout();
+            panelRight.SuspendLayout();
+            groupBox1.SuspendLayout();
             SuspendLayout();
             // 
             // panelTop
@@ -63,7 +71,6 @@
             label2.Size = new Size(35, 15);
             label2.TabIndex = 4;
             label2.Text = "Serve";
-            label2.Click += label2_Click;
             // 
             // buttonStart
             // 
@@ -92,7 +99,6 @@
             comboBoxServe.Name = "comboBoxServe";
             comboBoxServe.Size = new Size(80, 23);
             comboBoxServe.TabIndex = 1;
-            comboBoxServe.SelectedIndexChanged += comboBoxServe_SelectedIndexChanged;
             // 
             // comboBoxGame
             // 
@@ -113,11 +119,79 @@
             // 
             // panelRight
             // 
+            panelRight.Controls.Add(buttonZone);
+            panelRight.Controls.Add(buttonRedo);
+            panelRight.Controls.Add(buttonUndo);
+            panelRight.Controls.Add(groupBox1);
             panelRight.Dock = DockStyle.Right;
             panelRight.Location = new Point(679, 46);
             panelRight.Name = "panelRight";
             panelRight.Size = new Size(121, 340);
             panelRight.TabIndex = 2;
+            // 
+            // buttonZone
+            // 
+            buttonZone.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            buttonZone.Location = new Point(18, 101);
+            buttonZone.Name = "buttonZone";
+            buttonZone.Size = new Size(75, 23);
+            buttonZone.TabIndex = 3;
+            buttonZone.Text = "Zones";
+            buttonZone.UseVisualStyleBackColor = true;
+            // 
+            // buttonRedo
+            // 
+            buttonRedo.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonRedo.Location = new Point(18, 305);
+            buttonRedo.Name = "buttonRedo";
+            buttonRedo.Size = new Size(75, 23);
+            buttonRedo.TabIndex = 2;
+            buttonRedo.Text = "Redo >>";
+            buttonRedo.UseVisualStyleBackColor = true;
+            // 
+            // buttonUndo
+            // 
+            buttonUndo.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            buttonUndo.Location = new Point(18, 270);
+            buttonUndo.Name = "buttonUndo";
+            buttonUndo.Size = new Size(75, 23);
+            buttonUndo.TabIndex = 1;
+            buttonUndo.Text = "<< Undo";
+            buttonUndo.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            groupBox1.Controls.Add(radioButtonStrike);
+            groupBox1.Controls.Add(radioButtonMove);
+            groupBox1.Location = new Point(6, 6);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(112, 76);
+            groupBox1.TabIndex = 0;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "On Double Click";
+            // 
+            // radioButtonStrike
+            // 
+            radioButtonStrike.AutoSize = true;
+            radioButtonStrike.Location = new Point(6, 22);
+            radioButtonStrike.Name = "radioButtonStrike";
+            radioButtonStrike.Size = new Size(54, 19);
+            radioButtonStrike.TabIndex = 1;
+            radioButtonStrike.TabStop = true;
+            radioButtonStrike.Text = "Strike";
+            radioButtonStrike.UseVisualStyleBackColor = true;
+            // 
+            // radioButtonMove
+            // 
+            radioButtonMove.AutoSize = true;
+            radioButtonMove.Location = new Point(6, 47);
+            radioButtonMove.Name = "radioButtonMove";
+            radioButtonMove.Size = new Size(55, 19);
+            radioButtonMove.TabIndex = 0;
+            radioButtonMove.TabStop = true;
+            radioButtonMove.Text = "Move";
+            radioButtonMove.UseVisualStyleBackColor = true;
             // 
             // panelMain
             // 
@@ -150,6 +224,9 @@
             Load += Form1_Load;
             panelTop.ResumeLayout(false);
             panelTop.PerformLayout();
+            panelRight.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
+            groupBox1.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -165,5 +242,11 @@
         private Label label1;
         private ComboBox comboBoxServe;
         private ComboBox comboBoxGame;
+        private GroupBox groupBox1;
+        private RadioButton radioButtonStrike;
+        private RadioButton radioButtonMove;
+        private Button buttonZone;
+        private Button buttonRedo;
+        private Button buttonUndo;
     }
 }
