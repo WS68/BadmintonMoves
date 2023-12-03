@@ -52,4 +52,24 @@ internal class ItemsLayer: IEnumerable<ModelItem>
     {
         return GetEnumerator();
     }
+
+    public void RemoveWhere<T>( Func< T, bool > predicate ) where T: ModelItem
+    {
+        Debug.Assert( predicate != null );
+
+        var current = _start.Next;
+        while (current != _end)
+        {
+            var c = current;
+            current = current!.Next;
+
+            if (c!.Value is T t)
+            {
+                if (predicate(t))
+                {
+                    _owner.Remove(c);
+                }
+            }
+        }
+    }
 }

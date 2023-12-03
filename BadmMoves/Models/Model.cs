@@ -63,6 +63,25 @@ namespace BadmMoves.Models
                 }
                 return;
             }
+
+            if (command is MoveCmd mv)
+            {
+                _items.Zones.Clear();
+
+                var player = GetPlayer(mv.Player);
+                _items.Lines.RemoveWhere<Strike>( i => i.Player == player );
+                //пока так
+                player.Position = mv.Position; 
+                return;
+            }
+
+            if (command is StrikeCmd st )
+            {
+                var player = GetPlayer(st.Player);
+                var strike = new Strike(player, st.Position);
+                _items.Lines.Append(strike);
+                return;
+            }
         }
 
         public bool TryLocatePlayer(PointF position, out int index )
@@ -78,6 +97,18 @@ namespace BadmMoves.Models
 
             index = -1;
             return false;
+        }
+
+        public int GetSelectedPlayer()
+        {
+            return _items.Players.OfType<Player>()
+                .First(p => p.Selected).Number;
+        }
+
+        private Player GetPlayer(int index)
+        {
+            return _items.Players.OfType<Player>()
+                .First(p => p.Number == index);
         }
     }
 }

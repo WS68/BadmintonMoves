@@ -92,6 +92,21 @@ namespace BadmMoves
             if (!gc.TryGetCourtPoint(e.X, e.Y, out var position))
                 return;
 
+            var index = _model.GetSelectedPlayer();
+
+            Command command;
+            if (radioButtonMove.Checked)
+            {
+                command = new MoveCmd {Position = position, Player = index};
+            }
+            else
+            {
+                command = new StrikeCmd { Position = position, Player = index };
+            }
+
+            _model.ApplyCommand( command );
+            _history.AddLast(command);
+            Redraw();
         }
     }
 }
