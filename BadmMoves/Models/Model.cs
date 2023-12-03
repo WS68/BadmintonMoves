@@ -71,6 +71,7 @@ namespace BadmMoves.Models
                 {
                     item.Selected = item.Number == sel.Player;
                 }
+                return;
             }
         }
 
