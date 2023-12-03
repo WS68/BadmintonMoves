@@ -97,15 +97,46 @@ namespace BadmMoves
             Command command;
             if (radioButtonMove.Checked)
             {
-                command = new MoveCmd {Position = position, Player = index};
+                command = new MoveCmd { Position = position, Player = index };
             }
             else
             {
                 command = new StrikeCmd { Position = position, Player = index };
             }
 
-            _model.ApplyCommand( command );
+            _model.ApplyCommand(command);
             _history.AddLast(command);
+            Redraw();
+        }
+
+        private void buttonUndo_Click(object sender, EventArgs e)
+        {
+            var cmd = _history.Last;
+            if (cmd != null)
+            {
+                _history.RemoveLast();
+                _redo.AddLast(cmd);
+
+                foreach (var item in _history )
+                {
+                    _model.ApplyCommand( item );
+                }
+                Redraw();
+            }
+        }
+
+        private void buttonRedo_Click(object sender, EventArgs e)
+        {
+            var cmd = _redo.Last;
+            if (cmd != null)
+            {
+                _redo.RemoveLast();
+                _history.AddLast(cmd);
+            }
+            foreach (var item in _history)
+            {
+                _model.ApplyCommand(item);
+            }
             Redraw();
         }
     }

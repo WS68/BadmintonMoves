@@ -148,6 +148,7 @@
             buttonRedo.TabIndex = 2;
             buttonRedo.Text = "Redo >>";
             buttonRedo.UseVisualStyleBackColor = true;
+            buttonRedo.Click += buttonRedo_Click;
             // 
             // buttonUndo
             // 
@@ -158,6 +159,7 @@
             buttonUndo.TabIndex = 1;
             buttonUndo.Text = "<< Undo";
             buttonUndo.UseVisualStyleBackColor = true;
+            buttonUndo.Click += buttonUndo_Click;
             // 
             // groupBox1
             // 
