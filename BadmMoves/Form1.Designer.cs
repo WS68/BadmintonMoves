@@ -128,6 +128,8 @@
             panelMain.Size = new Size(679, 340);
             panelMain.TabIndex = 3;
             panelMain.Paint += panelMain_Paint;
+            panelMain.MouseClick += panelMain_MouseClick;
+            panelMain.MouseDoubleClick += panelMain_MouseDoubleClick;
             // 
             // timer
             // 

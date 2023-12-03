@@ -64,11 +64,33 @@ namespace BadmMoves
 
         private void buttonStart_Click(object sender, EventArgs e)
         {
-            var game = (Games) comboBoxGame.SelectedIndex;
+            var game = (Games)comboBoxGame.SelectedIndex;
             var serveIdx = comboBoxServe.SelectedIndex;
 
-            _model.ApplyCommand( new StartCmd() { Game = game, ServingPlayer = serveIdx }  );
+            _model.ApplyCommand(new StartCmd() { Game = game, ServingPlayer = serveIdx });
             Redraw();
+        }
+
+        private void panelMain_MouseClick(object sender, MouseEventArgs e)
+        {
+            var gc = GraphicContext.FromControl(panelMain);
+            if (!gc.TryGetCourtPoint(e.X, e.Y, out var position))
+                return;
+
+
+        }
+
+        private void panelMain_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            var gc = GraphicContext.FromControl(panelMain);
+            if (!gc.TryGetCourtPoint(e.X, e.Y, out var position ))
+                return;
+
+            if (_model.TryLocatePlayer(position, out var index))
+            {
+                _model.ApplyCommand( new SelectCmd() { Player = index } );
+                Redraw();
+            }
         }
     }
 }

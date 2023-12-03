@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using BadmMoves.Commands;
@@ -14,7 +15,6 @@ namespace BadmMoves.Models
 		private LinkedListNode<ModelItem> _pPlayers;
 		private LinkedListNode<ModelItem> _pLines;
 
-		private ModelState State = new ModelState();
 		public Model()
 		{
 			ModelItems.AddFirst(new Court());
@@ -31,21 +31,48 @@ namespace BadmMoves.Models
             {
                 RemovePlayers();
 
-                var player = new Player() {Male = false, Position = new PointF( Court.Len / 2 - 250, Court.Width / 2 - 60 ) };
+                var player = new Player() {Male = false, 
+                    Position = new PointF( Court.Len / 2 - 250, Court.Width / 2 - 60 ),
+					Number = 0,
+					Selected = true,
+                };
                 var pos = ModelItems.AddAfter(_pPlayers, player);
 
-                player = new Player() { Male = true, Position = new PointF(Court.Len / 2 - 400, Court.Width / 2 ) };
+                player = new Player()
+                {
+                    Male = true, 
+                    Position = new PointF(Court.Len / 2 - 400, Court.Width / 2 ),
+                    Number = 1,
+                };
                 pos = ModelItems.AddAfter(pos, player);
 
-                player = new Player() { Male = true, Position = new PointF(Court.Len / 2 + 300, Court.Width / 2 + 100 ) };
+                player = new Player() 
+                { 
+                    Male = true, 
+                    Position = new PointF(Court.Len / 2 + 300, Court.Width / 2 + 100 ), 
+                    Number = 2
+                };
                 pos = ModelItems.AddAfter(pos, player);
 
-                player = new Player() { Male = false, Position = new PointF(Court.Len / 2 + 400, Court.Width / 2 - 100 ) };
+                player = new Player()
+                {
+                    Male = false, 
+                    Position = new PointF(Court.Len / 2 + 400, Court.Width / 2 - 100 ),
+                    Number = 3,
+                };
                 pos = ModelItems.AddAfter( pos, player);
 
                 return;
             }
-		}
+
+            if (command is SelectCmd sel)
+            {
+                foreach (var item in ModelItems.OfType<Player>())
+                {
+                    item.Selected = item.Number == sel.Player;
+                }
+            }
+        }
 
         private void RemovePlayers()
         {
@@ -81,5 +108,20 @@ namespace BadmMoves.Models
 
 			return model;
 		}
-	}
+
+        public bool TryLocatePlayer(PointF position, out int index )
+        {
+            foreach (var item in ModelItems.OfType<Player>())
+            {
+                if (item.ContainesPoint(position))
+                {
+                    index = item.Number;
+                    return true;
+                }
+            }
+
+            index = -1;
+            return false;
+        }
+    }
 }
