@@ -43,7 +43,6 @@ namespace BadmMoves.History
 
 		public ModelState BuildState()
 		{
-			Model m = Model.Build(this.Players, this.Zones, this.Lines );
 			return new ModelState();
 		}
 	}
