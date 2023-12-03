@@ -26,23 +26,23 @@ internal class GraphicContext
         int x = _panel.Width;
         int y = _panel.Height;
 
-        float vx = (x / graphics.DpiX) / Court.Len;
-        float vy = (y / graphics.DpiY) / Court.Width;
+        float vx = (x / graphics.DpiX) / Court.Width;
+        float vy = (y / graphics.DpiY) / Court.Height;
 
 
         if (vx < vy)
         {
             //Будем ужимать высоту, чтобы сохранить пропорции
 
-            y = (int)(vx * Court.Width * graphics.DpiY);
+            y = (int)(vx * Court.Height * graphics.DpiY);
         }
         else
         {
             //Будем ужимать ширину, чтобы сохранить пропорции
-            x = (int)(vy * Court.Len * graphics.DpiX);
+            x = (int)(vy * Court.Width * graphics.DpiX);
         }
 
-        _smToDots = (float)Math.Sqrt((x / Court.Len) * (x / Court.Len) + (y / Court.Width) * (y / Court.Width));
+        _smToDots = (float)Math.Sqrt((x / Court.Width) * (x / Court.Width) + (y / Court.Height) * (y / Court.Height));
 
         _pTopLeft = new PointF(0, 0);
         _pTopRight = new PointF(x, 0);
@@ -56,16 +56,16 @@ internal class GraphicContext
 
     public PointF ToScreenPoint(PointF p)
     {
-        var x = p.X * (_x / Court.Len) + _pTopLeft.X;
-        var y = p.Y * (_y / Court.Width) + _pTopLeft.Y;
+        var x = p.X * (_x / Court.Width) + _pTopLeft.X;
+        var y = p.Y * (_y / Court.Height) + _pTopLeft.Y;
 
         return new PointF(x, y);
     }
 
     public PointF ToScreenSize(PointF p)
     {
-        var x = p.X * (_x / Court.Len);
-        var y = p.Y * (_y / Court.Width);
+        var x = p.X * (_x / Court.Width);
+        var y = p.Y * (_y / Court.Height);
         return new PointF(x, y);
     }
 
@@ -84,8 +84,8 @@ internal class GraphicContext
     {
         if (x < _x && y < _y)
         {
-            var xx = x * Court.Len / _x;
-            var yy = y * Court.Width / _y;
+            var xx = x * Court.Width / _x;
+            var yy = y * Court.Height / _y;
             position = new PointF(xx, yy);
             return true;
         }

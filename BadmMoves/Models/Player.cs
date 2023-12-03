@@ -55,4 +55,22 @@ class Player : ModelItem
 
     private int Width => Male ? 60 : 50;
     private int Height => Male ? 80 : 60;
+
+    public void Move(PointF newPosition)
+    {
+        if (LeftCourt && newPosition.X > Court.Width / 2 - Width )
+        {
+            var newX = Court.Width / 2 - Width;
+            var newY = Position.Y + (newPosition.Y - Position.Y) * (newX - Position.X) / (newPosition.X - Position.X);
+
+            newPosition = new PointF(newX, newY);
+        }
+        else if (RightCourt && newPosition.X < Court.Width / 2 + Width)
+        {
+            var newX = Court.Width / 2 + Width;
+            var newY = Position.Y + (newPosition.Y - Position.Y) * (newX - Position.X) / (newPosition.X - Position.X);
+            newPosition = new PointF(newX, newY);
+        }
+        Position = newPosition;
+    }
 }

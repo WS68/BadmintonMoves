@@ -22,7 +22,7 @@ namespace BadmMoves.Models
                 ModelItems.Clear();
 
                 var player = new Player() {Male = false, 
-                    Position = new PointF( Court.Len / 2 - 250, Court.Width / 2 - 60 ),
+                    Position = new PointF( Court.Width / 2 - 250, Court.Height / 2 - 60 ),
 					Number = 0,
 					Selected = true,
                 };
@@ -31,24 +31,24 @@ namespace BadmMoves.Models
                 player = new Player()
                 {
                     Male = true, 
-                    Position = new PointF(Court.Len / 2 - 400, Court.Width / 2 ),
-                    Number = 1,
+                    Position = new PointF(Court.Width / 2 - 400, Court.Height / 2 ),
+                    Number = 3,
                 };
                 ModelItems.Players.Append(player);
 
                 player = new Player() 
                 { 
                     Male = true, 
-                    Position = new PointF(Court.Len / 2 + 300, Court.Width / 2 + 100 ), 
-                    Number = 2
+                    Position = new PointF(Court.Width / 2 + 300, Court.Height / 2 + 100 ), 
+                    Number = 1
                 };
                 ModelItems.Players.Append(player);
 
                 player = new Player()
                 {
                     Male = false, 
-                    Position = new PointF(Court.Len / 2 + 400, Court.Width / 2 - 100 ),
-                    Number = 3,
+                    Position = new PointF(Court.Width / 2 + 400, Court.Height / 2 - 100 ),
+                    Number = 2,
                 };
                 ModelItems.Players.Append(player);
 
@@ -70,8 +70,7 @@ namespace BadmMoves.Models
 
                 var player = GetPlayer(mv.Player);
                 _items.Lines.RemoveWhere<Strike>( i => i.Player == player );
-                //пока так
-                player.Position = mv.Position; 
+                player.Move ( mv.Position ); 
                 return;
             }
 
